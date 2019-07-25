@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!--Check for id parameter in url and display template for single blog post if true-->
+    {% if request.args.get('id') != None %}
+        <h1>{{posts.title}}</h1>
+        <div>{{posts.body}}</div>
+        <p><em>Written by: <a href="/blog?userId={{posts.owner_id}}">{{posts.owner.username}}</a></em></p>
+
+    <!--Else display a list of blog posts-->
+    {% else %}
+        <h1>Blog</h1>
+        {% if posts|length == 0 %}
+            <p>No blog posts yet</p>
+        {% else %}
+            <ul class="no-pad">
+                {% for post in posts %}
+                    <h2><a href="/blog?id={{post.id}}">{{post.title}}</a></h2>
+                    <div>{{post.body}}</div>
+                    <p><em>Written by: <a href="/blog?userId={{post.owner_id}}">{{post.owner.username}}</a></em></p>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

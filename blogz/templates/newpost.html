@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <h1>Add Post</h1>
+        <form action="/newpost" method="POST">
+            <label for="title">Title
+                <input id="title" type="text" name="title" value="{{title}}"/>
+                <span class="error">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            {% if category == "title_error" %}
+                                {{message}}    
+                            {% endif %} 
+                        {% endfor %}
+                    {% endwith %}
+                </span>
+            </label>
+            <label for="body">Body
+                <textarea id="body" rows="10" cols="30" name="body">{{body}}</textarea>
+                <span class="error">
+                    {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% for category, message in messages %}
+                            {% if category == "body_error" %}
+                                {{message}}    
+                            {% endif %} 
+                        {% endfor %}
+                    {% endwith %}
+                </span>
+            </label>
+            <input type="submit" />
+        </form>
+{% endblock %}

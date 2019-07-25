@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<span class="error">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% for category, message in messages %}
+            {% if category == "general_error" %}
+                {{message}}    
+            {% endif %} 
+        {% endfor %}
+    {% endwith %}
+</span>
+<h1>Login</h1>
+<form action="/login" method="post">
+  <p><label>Username<input type="text" name="username"/></label></p>
+  <p><label>Password<input type="password" name="password"/></label></p>
+  <p><input type="submit" value="Login"/></p>
+</form>
+<p><a href="/signup">Create Account</a></p>
+
+{% endblock %}

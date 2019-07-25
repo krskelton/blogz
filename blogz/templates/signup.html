@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<span class="error">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% for category, message in messages %}
+            {% if category == "general_error" %}
+                {{message}}    
+            {% endif %} 
+        {% endfor %}
+    {% endwith %}
+</span>
+
+<h1>Register New Account</h1>
+<form action="/signup" method="post">
+  <label>Username 
+    <input type="text" name="username"/>
+    <span class="error">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% for category, message in messages %}
+                {% if category == "username_error" %}
+                    {{message}}    
+                {% endif %} 
+            {% endfor %}
+        {% endwith %}
+    </span>
+  </label>
+  <label>New Password 
+      <input type="password" name="password"/>
+      <span class="error">
+          {% with messages = get_flashed_messages(with_categories=True) %}
+              {% for category, message in messages %}
+                  {% if category == "password_error" %}
+                      {{message}}    
+                  {% endif %} 
+              {% endfor %}
+          {% endwith %}
+      </span>
+  </label>
+  <label>Verify Password 
+      <input type="password" name="verify"/>
+      <span class="error">
+          {% with messages = get_flashed_messages(with_categories=True) %}
+              {% for category, message in messages %}
+                  {% if category == "verify_error" %}
+                      {{message}}    
+                  {% endif %} 
+              {% endfor %}
+          {% endwith %}
+      </span>
+    </label>
+  <p><input type="submit" value="Register"/></p>
+</form>
+
+{% endblock %}
