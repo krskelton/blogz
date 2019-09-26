@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Word Up!</title>
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+
+    <!-- our CSS -->
+    <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+    <h1 class="game-title">Word Up!</h1>
+
+    <main class="mount-point">
+
+        <!--
+        a section for things that should always be showing,
+        even if the game has not yet started -->
+        <section id="pregame">
+
+            <!--
+            A "scoreboard" to display the user's current score
+            and the time remaining -->
+            <div id="scoreboard">
+                <div>
+                    <h5>Time Remaining</h5>
+                    <h2 class="scoreboard-data">{{secondsRemaining}}</h2>
+                    <!-- TODO 2
+                    Make the time remaining update with the correct value
+                    -->
+                </div>
+                <div>
+                    <h5>Score</h5>
+                    <h2 class="scoreboard-data">{{ currentScore }}</h2>
+                </div>
+            </div>
+
+            <!-- TODO 1
+            Make a "New Game" button
+            -->
+            <button @click.prevent="startGame" class="new-game-button">New Game</button>
+
+        </section>
+
+        <!-- things that should not show up until the (first) game has started -->
+        <section id="game">
+
+            <!-- TODO 4
+            Add some instructions so the user knows what to do.
+            -->
+
+            <div class="letter-chips">
+                <!-- <div class="letter-chip" v-for="letter in allowedLetters">{{letter}}</div> -->
+                <!-- TODO 5
+                Fill this container with a <letter-chip> for each value in allowedLetters
+                -->
+                <letter-chip class=“letter-chip” v-for="letter in allowedLetters" :letter="letter" :value="letterScore(letter)"></letter-chip>
+
+            </div>
+
+            <!-- the form via which the user attempts to submit new words -->
+            <div
+                id="word-attempt-form"
+                :class="{ 'contains-disallowed': !containsOnlyAllowedLetters }"
+            >
+                <!-- the actual text box where the user types -->
+                <input type="text" autofocus v-model="currentAttempt" :disabled="!secondsRemaining" v-on:keyup.enter="addNewWordSubmission(currentAttempt)"/>
+                <!-- TODO 3 make this input autofocused when it's created. -->
+                <!-- TODO 6 keep this in sync with the "currentAttempt" value in your Vue. -->
+                <!-- TODO 9 disable the input when the timer runs out -->
+                <!-- TODO 10 if the user presses 'enter', submit the current word -->
+
+                <br>
+                <div class="disallowed-letters">
+                    <!-- TODO 8 add a <span> for each disallowed letter here -->
+                    <span v-for="letter in disallowedLettersInWord">{{letter}}</span>
+                </div>
+            </div>
+
+            <!-- a container to display the user's word submissions -->
+            <div id="word-submissions">
+                <!-- TODO 11 add a <submitted-word> component for each word here -->
+                <submitted-word v-for="word in wordSubmissions" :word="word.word" :score="wordScore(word.word)" :loading="word.loading" :is-real-word="word.isRealWord"  v-if="word.isRealWord == true"></submitted-word>                   
+            </div>
+        </section>
+    </main>
+
+    <!--
+        The following are the templates for the letter-chip and
+        submitted-word components. Because we could have multiple
+        letter-chip on the page at once, we define a template
+        that Vue will use as many times as necessary to specify
+        how the HTML will be laid out.
+
+        It's more common in my experience to use Vue's
+        single-file-components, which allow you to write the
+        template, javascript, and styling for a component all
+        together in one file. However, those require a build
+        step, and installing some tools. This will be easier to
+        get started with.
+    -->
+
+    <script type="text/x-template" id="letter-chip-template">
+        <span class="letter-chip">
+            {{ letter }}
+            <span class="chip-value">
+                {{ value }}
+            </span>
+        </span>
+    </script>
+
+    <script type="text/x-template" id="submitted-word-template">
+        <span class="submitted-word">
+            {{ word }}
+            <span v-if="loading" class="submitted-word-loading">
+                ...
+            </span>
+            <span v-else-if="isRealWord" class="submitted-word-success">
+                {{ score }}
+            </span>
+            <span v-else-if="!isRealWord" class="submitted-word-not-real">
+                &times;
+            </span>
+        </span>
+    </script>
+
+    <!-- our script -->
+    <script src="scripts/wordup.js"></script>
+</body>

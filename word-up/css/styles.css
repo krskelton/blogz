@@ -1,0 +1,144 @@
+body {
+    text-align: center;
+    color: gray;
+    font-size: 20px;
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+.game-title {
+    margin: 0;
+    padding: 2%;
+    background: orange;
+    color: #fff;
+}
+
+main {
+    padding: 2%;
+}
+
+#pregame {
+    margin-bottom: 8%;
+}
+
+#scoreboard {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#scoreboard > div {
+    width: 50%;
+    min-width: 80px;
+}
+
+.scoreboard-data {
+    font-size: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#word-attempt-form {
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+.bad-attempt {
+    color: #d9534f; /* Bootstrap "danger" red */
+}
+
+/* A chip to display a letter or a wordSubmission */
+.letter-chip, .submitted-word {
+    font-size: 40px;
+    color: orange;
+    font-weight: bold;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    padding: 8px;
+    display: inline-block;
+    width: 60px;
+}
+
+.submitted-word {
+    width: unset;
+}
+
+.disallowed-letters {
+    margin-top: 10px;
+}
+.disallowed-letters span {
+    background-color: red;
+    color: white;
+    padding: 8px;
+    border-radius: 3px;
+    margin: 6px;
+}
+
+/* A smaller chip to display the score of a letter or word */
+.chip-value,
+.submitted-word-loading,
+.submitted-word-success,
+.submitted-word-not-real {
+    color: white;
+    background-color: #818a91;
+    padding: 4px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 12px;
+    width: 14px;
+    display: inline-block;
+}
+
+.submitted-word-success {
+    color: green;
+    font-size: 18px;
+}
+.submitted-word-not-real {
+    color: red;
+    font-size: 18px;
+}
+
+.word-submission {
+    font-size: 30px;
+    color: orange;
+    font-weight: normal;
+}
+
+.allowed-letter {
+    font-size: 40px;
+    color: orange;
+}
+
+
+input {
+    text-align: center;
+    padding: 1%;
+    font-size: 30px;
+    color: grey;
+}
+
+input:focus {
+    border: 2px solid #4285F4; /* Bootstrap "primary" blue */
+    outline-color: #4285f4; /* outline is the fuzzy "glow" */
+}
+
+.contains-disallowed input {
+    border-color: #d9534f;
+    color: #d9534f;
+}
+
+.new-game-button {
+    padding: 20px;
+    background-color: #4285f4;
+    color: white;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.new-game-button:hover {
+    background-color: #3871d0;
+}
